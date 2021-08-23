@@ -27,6 +27,7 @@ export default class GloboSkeletonWebPart extends BaseClientSideWebPart<IGloboSk
               <p class="${styles.subTitle}">Customize SharePoint experiences using Web Parts.</p>
               <p class="${styles.description}">${escape(this.properties.description)}</p>
               <p class="${styles.description}">Show Staff Number: ${this.properties.showStaffNumber}</p>
+              <p class="${styles.description}">Name: ${escape(this.context.pageContext.user.displayName)}</p>
               <a href="https://aka.ms/spfx" class="${styles.button}">
                 <span class="${styles.label}">Learn more</span>
               </a>
