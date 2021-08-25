@@ -52,8 +52,73 @@ export default class GloboSkeletonWebPart extends BaseClientSideWebPart<IGloboSk
             </div>
           </div>
           `;          
+
+          this._renderJobTitle(userProfile);
+          if(this.properties.showStaffNumber) {
+            this._renderEmployeeId(client);
+          }
+          this._renderDirectReports(client);
+          this._renderManagerAndColleagues(client, userProfile);
       })
     })
+  }
+
+  private _renderCollegues(client: MSGraphClient, userProfile: MicrosoftGraph.User, managerId: string): void {
+    client
+    .api(`/users/${managerId}/directReports`)
+    .get((error, directReports: any, rawResponse?: any) => {
+      const spColleagueContainer: Element = this.domElement.querySelector('#spColleagues');
+      let html: string = spColleagueContainer.innerHTML;
+      directReports.value.forEach((directReport: MicrosoftGraph.User) => {
+        if (directReport.id != userProfile.id) {
+          html += `<p class="${styles.description}">${escape(directReport.displayName)}</p>`;
+        }
+      });
+      spColleagueContainer.innerHTML = html;
+    })
+  }
+
+  private _renderManagerAndColleagues(client: MSGraphClient, userProfile: MicrosoftGraph.User): void {
+    client
+    .api('/me/manager')
+    .get((error, manager: MicrosoftGraph.User, rawResponse?:any) => {
+      const spUserContainer: Element = this.domElement.querySelector('#spManager');
+      let html: string = spUserContainer.innerHTML;
+      if (manager != null) {
+        html += `<p class="${styles.description}">${escape(manager.displayName)}</p>`;
+        spUserContainer.innerHTML = html;
+      }
+      this._renderCollegues(client, userProfile, manager.id);
+    })
+  }
+
+  private _renderDirectReports(client: MSGraphClient): void {
+    client
+    .api('/me/directReports')
+    .get((error, directReports: any, rawResponse?: any) => {
+      const spUserContainer: Element = this.domElement.querySelector('#spReports');
+      let html: string = spUserContainer.innerHTML;
+      directReports.value.forEach((directReport: MicrosoftGraph.User) => {
+        html += `<p class="${styles.description}">${escape(directReport.displayName)}</p>`;
+      });
+      spUserContainer.innerHTML = html;
+    })
+  }
+
+  private _renderEmployeeId(client: MSGraphClient): void {
+    client.api('/me/id/$value')
+    .responseType('TEXT')
+    .get((error, employeeId: any, rawResponse?:any) => {
+      const spUserContainer: Element = this.domElement.querySelector('#spUserContainer');
+      spUserContainer.innerHTML += `<p>${escape(employeeId)}</p>`
+    })
+  }
+
+  private _renderJobTitle(userProfile: MicrosoftGraph.User): void {
+    const spUserContainer: Element = this.domElement.querySelector('#spUserContainer');
+    let html: string = spUserContainer.innerHTML;
+    html += `<p>${escape(userProfile.jobTitle)}</p>`;
+    spUserContainer.innerHTML = html;
   }
   
   protected get dataVersion(): Version {
