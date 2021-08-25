@@ -1,4 +1,4 @@
-# globo-skeleton
+# Globo-UserApp
 
 ## Summary
 

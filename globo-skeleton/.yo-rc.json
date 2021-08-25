@@ -3,7 +3,7 @@
     "isCreatingSolution": true,
     "environment": "spo",
     "version": "1.12.1",
-    "libraryName": "globo-skeleton",
+    "libraryName": "Globo-UserApp",
     "libraryId": "fd586452-5cdc-40e6-b9d3-cb5b7e5787dc",
     "packageManager": "npm",
     "isDomainIsolated": false,

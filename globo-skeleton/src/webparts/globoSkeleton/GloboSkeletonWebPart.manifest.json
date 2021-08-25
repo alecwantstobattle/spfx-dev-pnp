@@ -20,14 +20,14 @@
         "default": "Other"
       },
       "title": {
-        "default": "Globo-Skeleton"
+        "default": "Globo-UserApp"
       },
       "description": {
-        "default": "Globo-Skeleton description"
+        "default": "Globo-UserApp description"
       },
       "officeFabricIconFontName": "Page",
       "properties": {
-        "description": "Globo-Skeleton",
+        "description": "Globo-UserApp",
         "showStaffNumber": true
       }
     }
