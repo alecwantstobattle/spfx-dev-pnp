@@ -32,7 +32,7 @@ export default class GloboSkeletonWebPart extends BaseClientSideWebPart<IGloboSk
           <div class="${styles.globoSkeleton}">
             <div class="${styles.container}">
               <div class="${styles.row}">
-                <span class="${styles.title}">Welcome ${escape(this.context.pageContext.user.displayName)}!</span>
+                <span class="${styles.title}">Welcome ${escape(this.context.pageContext.user.displayName)}! v1.0.0.1</span>
                 <div class="${styles.subTitle}" id="spUserContainer"></div>
                 <div class="${styles.rowTable}">
                   <div class="${styles.columnTable3}">

@@ -3,7 +3,7 @@
   "solution": {
     "name": "Globo-UserApp-client-side-solution",
     "id": "fd586452-5cdc-40e6-b9d3-cb5b7e5787dc",
-    "version": "1.0.0.0",
+    "version": "1.0.0.1",
     "includeClientSideAssets": true,
     "isDomainIsolated": false,
     "developer": {
