@@ -21,6 +21,14 @@
       {
         "resource": "Microsoft Graph",
         "scope": "User.Read.All"
+      },
+      {
+        "resource": "Microsoft Graph",
+        "scope": "Calendars.Read"
+      },
+      {
+        "resource": "Microsoft Graph",
+        "scope": "MailboxSettings.Read"
       }
     ]
   },
