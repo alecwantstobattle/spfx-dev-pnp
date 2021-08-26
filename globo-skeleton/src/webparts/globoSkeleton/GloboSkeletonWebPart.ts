@@ -1,3 +1,7 @@
+import * as React from 'react';
+import * as ReactDom from 'react-dom';
+import PersonalCalendar from './components/PersonalCalendar';
+import { IPersonalCalendarProps } from './components/IPersonalCalendarProps';
 import { Version } from '@microsoft/sp-core-library';
 import {
   IPropertyPaneConfiguration,
@@ -28,7 +32,8 @@ export default class GloboSkeletonWebPart extends BaseClientSideWebPart<IGloboSk
       client
       .api('/me')
       .get((error, userProfile: any, rawResponse?: any) => {
-        this.domElement.innerHTML = `
+        const spRoot: Element = this.domElement.querySelector('#root');
+        spRoot.innerHTML = `
           <div class="${styles.globoSkeleton}">
             <div class="${styles.container}">
               <div class="${styles.row}">
@@ -60,7 +65,21 @@ export default class GloboSkeletonWebPart extends BaseClientSideWebPart<IGloboSk
           this._renderDirectReports(client);
           this._renderManagerAndColleagues(client, userProfile);
       })
+      this._renderAgenda(client);
     })
+  }
+
+  private _renderAgenda(client: MSGraphClient): void {
+    const element: React.ReactElement<IPersonalCalendarProps> = React.createElement(
+      PersonalCalendar,
+      {
+        description: this.properties.description,
+        showStaffNumber: this.properties.showStaffNumber,
+        graphClient: client,
+      }
+    );
+
+    ReactDom.render(element, this.domElement);
   }
 
   private _renderCollegues(client: MSGraphClient, userProfile: MicrosoftGraph.User, managerId: string): void {
